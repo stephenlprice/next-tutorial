@@ -1,18 +1,24 @@
-import Layout from '../../components/layout'
+import Head from 'next/head'
 import { getAllPostIds, getPostData } from '../../lib/posts'
+import utilStyles from '../../styles/utils.module.css'
+import Layout from '../../components/layout'
+import Date from '../../components/date'
 
 // files named inside brackets [] create dynamic routes, 
 // Next will create individual HTML routes for each .md file
 export default function Post({ postData }) {
   return (
     <Layout>
-      {postData.title}
-      <br/>
-      {postData.id}
-      <br/>
-      {postData.date}
-      <br/>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <Head>
+        <title>{postData.title}</title>
+      </Head>
+      <article>
+        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+      </article>
+      <div className={utilStyles.lightText}>
+        <Date dateString={postData.date} />
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />      
     </Layout>
   )
 }
